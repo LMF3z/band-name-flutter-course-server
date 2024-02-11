@@ -26,6 +26,15 @@
         socket.on('message', function( payload ) {
             console.log("payload --->", payload)
         })
+
+        socket.on('new-message', (payload) => {
+            alert(`nuevo mensaje de: ${payload.name}, mensaje: ${payload.message}`)
+        })
+
+        socket.on('active-bands', (payload) => {
+            console.table(payload)
+        })
+
     </script>
     
 </body>
