@@ -43,7 +43,16 @@ const loginUserController = async (req, res = response) => {
 
     if (!user) {
       res.status(400).json({
-        error: 'User not exist',
+        error: 'incorrect credentials',
+      });
+      return;
+    }
+
+    const isPasswordValid = bcrypt.compareSync(body.password, user.password);
+
+    if (!isPasswordValid) {
+      res.status(400).json({
+        error: 'incorrect credentials',
       });
       return;
     }
