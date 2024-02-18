@@ -5,6 +5,15 @@ const generateJWT = (userId) =>
     expiresIn: '12h',
   });
 
-const verifyToken = (token) => jwt.verify(token, process.env.JWT_SECRET);
+const verifyToken = (token) => {
+  try {
+    const { uuid } = jwt.verify(token, process.env.JWT_SECRET);
+    return [true, uuid];
+  } catch (error) {
+    console.log('error al verificar token --->', error);
+
+    return [false, null];
+  }
+};
 
 module.exports = { generateJWT, verifyToken };

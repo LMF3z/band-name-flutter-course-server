@@ -1,6 +1,5 @@
 const { response } = require('express');
 const jwt = require('jsonwebtoken');
-const { verifyToken } = require('../helpers/genJWT.helper');
 
 const validateJTWMiddleware = (req, res = response, next) => {
   try {
@@ -12,7 +11,7 @@ const validateJTWMiddleware = (req, res = response, next) => {
       });
     }
 
-    const { uuid } = verifyToken(token);
+    const { uuid } = jwt.verify(token, process.env.JWT_SECRET);
 
     if (!uuid) {
       return res.status(401).json({
